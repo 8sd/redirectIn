@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Redirect In</title>
+
+  <!-- CSS -->
+  <style>
+
+    .hidden {
+      display: none;
+    }
+
+    .border {
+      border: 1px black solid;
+    }
+
+    .wrapper {
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height: 98vh;
+    }
+
+    .center {
+      align-items:center;
+    }
+
+    .background {
+      background: url(https://source.unsplash.com/collection/1837128) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+
+    .appear {
+      position:relative;
+      animation:animateTop 0.4s
+    }
+
+    @keyframes animateTop {
+      from {
+        top:-300px;
+        opacity:1
+      } 
+      
+      to {
+        top:0;
+        opacity:1
+      }
+    }
+
+    .text {
+      background-color: rgba(0,0,0,0.1);
+      border: 0;
+
+    }
+  </style>
+
+  <!-- Script -->
+  <script>
+    function onButonClick () {
+      let time = Date.parse(document.getElementById("time").value);
+      let url  = document.getElementById("url" ).value;
+
+      if (time === NaN) {
+        alert("Please set valid time");
+        return;
+      }
+
+      if (url === "") {
+        alert("Please set valid URL");
+        return;
+      }
+
+      if (url.indexOf("http") !== 0 || !(url.indexOf("://") === 4 || url.indexOf("://") === 5)) {
+        url = "https://" + url;
+      }
+
+      /* TODO: handle date*/
+      /* TODO: Wait until time */
+      window.location = url;
+    }
+
+    function showDate () {
+      if (document.getElementById('date').className.indexOf("hidden") === -1) {
+        return;
+      }
+      document.getElementById('date').classList.remove('hidden');
+      document.getElementById('date').className += " appear";
+    }
+  </script>
+</head>
+
+<body class="fullscreen background">
+  <div class="wrapper">
+    <div class="border center">
+      <div class="center"><input id="url" type="text" class="text" placeholder="URL…"></div>
+      <div class="center"><input id="time" type="time" onchange="showDate()"></div>
+      <!-- TODO: when date fades in the button has to fade down -->
+      <div class="center"><input id="date" class="hidden" type="date"></div>
+      <div class="center"><button onclick="showDate()">Redirect!</button></div>
+    </div>
+  </div>
+</body>
+
+</html>
